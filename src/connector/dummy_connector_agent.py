@@ -1,6 +1,6 @@
 from loguru import logger
 
-from ..base import ConnectorAgent
+from base import ConnectorAgent
 
 
 class DummyConnectorAgent(ConnectorAgent):

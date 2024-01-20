@@ -2,8 +2,8 @@ import re
 
 import cohere
 
-from ..base import ChatAgent
-from ..schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from base import ChatAgent
+from schema import RelatedDDL, RelatedDoc, RelatedQuestion
 
 
 class CohereAgent(ChatAgent):

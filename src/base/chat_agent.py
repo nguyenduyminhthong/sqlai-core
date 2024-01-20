@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ..schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from schema import RelatedDDL, RelatedDoc, RelatedQuestion
 
 
 class ChatAgent(ABC):

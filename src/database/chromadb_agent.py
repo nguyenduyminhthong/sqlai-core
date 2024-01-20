@@ -5,8 +5,8 @@ import pandas as pd
 from chromadb.utils import embedding_functions
 from uuid import uuid4
 
-from ..base import DatabaseAgent
-from ..schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from base import DatabaseAgent
+from schema import RelatedDDL, RelatedDoc, RelatedQuestion
 
 
 class ChromaDBAgent(DatabaseAgent):
