@@ -34,13 +34,13 @@ class SQLiteAgent(ConnectorAgent):
         if self.connection:
             self.connection.close()
             self.connection = None
-            logger.success("Connection closed.")
+            logger.success("Connection closed")
 
         return None
 
     def run(self: "SQLiteAgent", sql: str) -> pd.DataFrame | None:
         if not self.connection:
-            logger.warning("If you want to run the SQL query, you should connect to a database first.")
+            logger.warning("If you want to run the SQL query, you should connect to a database first")
             return None
 
         try:
