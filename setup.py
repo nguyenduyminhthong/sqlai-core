@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 setup(
-    name="src",
+    name="sqlai",
     version="1.0.0",
     description="SQLAI Core",
     url="http://github.com/nguyenduyminhthong/sqlai-core",
