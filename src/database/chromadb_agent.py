@@ -10,11 +10,18 @@ from schema import RelatedDDL, RelatedDoc, RelatedQuestion
 
 
 class ChromaDBAgent(DatabaseAgent):
-    def __init__(self: "ChromaDBAgent", host: str) -> None:
-        if not host:
-            raise ValueError("Database host is not provided.")
+    def __init__(self: "ChromaDBAgent", host: str = None, path: str = None, client_type: str = "HttpClient") -> None:
+        if client_type == "HttpClient":
+            if not host:
+                raise ValueError("Database host is not provided.")
 
-        self.chroma_client = chromadb.HttpClient(host)
+            self.chroma_client = chromadb.HttpClient(host)
+        else:
+            if not path:
+                raise ValueError("Database path is not provided.")
+
+            self.chroma_client = chromadb.PersistentClient(path)
+
         self.sql_table = self.chroma_client.get_or_create_collection("sql", embedding_function=embedding_functions.DefaultEmbeddingFunction())
         self.ddl_table = self.chroma_client.get_or_create_collection("ddl", embedding_function=embedding_functions.DefaultEmbeddingFunction())
         self.doc_table = self.chroma_client.get_or_create_collection("doc", embedding_function=embedding_functions.DefaultEmbeddingFunction())
