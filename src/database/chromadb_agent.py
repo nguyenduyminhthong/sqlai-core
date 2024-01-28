@@ -49,7 +49,7 @@ class ChromaDBAgent(DatabaseAgent):
         if sql_data is not None:
             documents = [json.loads(document) for document in sql_data["documents"]]
 
-            df_sql = pd.DataFrame({"id": sql_data["ids"], "content": map(lambda document: document["sql"], documents), "question": map(lambda document: document["quest"], documents)})
+            df_sql = pd.DataFrame({"id": sql_data["ids"], "content": map(lambda document: document["sql"], documents), "question": map(lambda document: document["question"], documents)})
 
             df = pd.concat([df, df_sql])
 
