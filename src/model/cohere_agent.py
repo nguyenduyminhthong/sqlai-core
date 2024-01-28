@@ -47,6 +47,9 @@ class CohereAgent(ChatAgent):
         return prompt_history
 
     def _postprocess_sql_response(self: "CohereAgent", sql_response: str) -> str:
-        sql_response = re.findall(r"```sql(.*?)```", sql_response, re.DOTALL)[0]
+        try:
+            sql_response = re.findall(r"```sql(.*?)```", sql_response, re.DOTALL)[0]
+        except IndexError:
+            pass
 
         return sql_response
