@@ -56,7 +56,14 @@ class ChromaDBAgent(DatabaseAgent):
         if sql_data is not None:
             documents = [json.loads(document) for document in sql_data["documents"]]
 
-            df_sql = pd.DataFrame({"id": sql_data["ids"], "content": map(lambda document: document["sql"], documents), "question": map(lambda document: document["question"], documents)})
+            df_sql = pd.DataFrame(
+                {
+                    "id": sql_data["ids"],
+                    "content": map(lambda document: document["sql"], documents),
+                    "question": map(lambda document: document["question"], documents),
+                    "time_created": map(lambda document: document["time_created"], documents),
+                }
+            )
 
             df = pd.concat([df, df_sql])
 
@@ -64,7 +71,13 @@ class ChromaDBAgent(DatabaseAgent):
         if ddl_data is not None:
             documents = [json.loads(document) for document in ddl_data["documents"]]
 
-            df_ddl = pd.DataFrame({"id": ddl_data["ids"], "content": map(lambda document: document["ddl"], documents)})
+            df_ddl = pd.DataFrame(
+                {
+                    "id": ddl_data["ids"],
+                    "content": map(lambda document: document["ddl"], documents),
+                    "time_created": map(lambda document: document["time_created"], documents),
+                }
+            )
             df_ddl["question"] = None
 
             df = pd.concat([df, df_ddl])
@@ -73,28 +86,34 @@ class ChromaDBAgent(DatabaseAgent):
         if doc_data is not None:
             documents = [json.loads(document) for document in doc_data["documents"]]
 
-            df_doc = pd.DataFrame({"id": doc_data["ids"], "content": map(lambda document: document["ddl"], documents)})
+            df_doc = pd.DataFrame(
+                {
+                    "id": doc_data["ids"],
+                    "content": map(lambda document: document["ddl"], documents),
+                    "time_created": map(lambda document: document["time_created"], documents),
+                }
+            )
             df_doc["question"] = None
 
             df = pd.concat([df, df_doc])
 
         return df
 
-    def add_sql_question(self: "ChromaDBAgent", sql: str, question: str) -> None:
+    def add_sql_question(self: "ChromaDBAgent", sql: str, question: str, time_created: str) -> None:
         uuid = str(uuid4()) + "-sql"
-        self.sql_table.add(uuid, documents=json.dumps({"sql": sql, "question": question}))
+        self.sql_table.add(uuid, documents=json.dumps({"sql": sql, "question": question, "time_created": time_created}))
 
         return None
 
-    def add_ddl(self: "ChromaDBAgent", ddl: str) -> None:
+    def add_ddl(self: "ChromaDBAgent", ddl: str, time_created: str) -> None:
         uuid = str(uuid4()) + "-ddl"
-        self.ddl_table.add(uuid, documents=json.dumps({"ddl": ddl}))
+        self.ddl_table.add(uuid, documents=json.dumps({"ddl": ddl, "time_created": time_created}))
 
         return None
 
-    def add_doc(self: "ChromaDBAgent", doc: str) -> None:
+    def add_doc(self: "ChromaDBAgent", doc: str, time_created: str) -> None:
         uuid = str(uuid4()) + "-doc"
-        self.doc_table.add(uuid, documents=json.dumps({"doc": doc}))
+        self.doc_table.add(uuid, documents=json.dumps({"doc": doc, "time_created": time_created}))
 
         return None
 
