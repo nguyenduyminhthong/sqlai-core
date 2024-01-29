@@ -1,6 +1,7 @@
 import json
 
 import chromadb
+from loguru import logger
 import pandas as pd
 from chromadb.utils import embedding_functions
 from uuid import uuid4
@@ -30,21 +31,27 @@ class ChromaDBAgent(DatabaseAgent):
 
     def get_related_questions(self: "ChromaDBAgent", question: str) -> list[RelatedQuestion]:
         result = self.sql_table.query(query_texts=[question])
+
         if result["documents"]:
+            logger.debug(f"Related questions: {result['documents']}")
             return [RelatedQuestion.parse_raw(document) for document in result["documents"][0]]
 
         return []
 
     def get_related_ddls(self: "ChromaDBAgent", question: str) -> list[RelatedDDL]:
         result = self.ddl_table.query(query_texts=[question])
+
         if result["documents"]:
+            logger.debug(f"Related ddls: {result['documents']}")
             return [RelatedDDL.parse_raw(document) for document in result["documents"][0]]
 
         return []
 
     def get_related_docs(self: "ChromaDBAgent", question: str) -> list[RelatedDoc]:
         result = self.doc_table.query(query_texts=[question])
+
         if result["documents"]:
+            logger.debug(f"Related docs: {result['documents']}")
             return [RelatedDoc.parse_raw(document) for document in result["documents"][0]]
 
         return []
