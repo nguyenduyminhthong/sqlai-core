@@ -6,7 +6,7 @@ import pandas as pd
 import requests
 from loguru import logger
 
-from base import ConnectorAgent
+from ..base import ConnectorAgent
 
 
 class SQLiteAgent(ConnectorAgent):

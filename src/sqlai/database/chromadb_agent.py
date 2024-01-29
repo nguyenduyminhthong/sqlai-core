@@ -6,9 +6,9 @@ import pandas as pd
 from chromadb.utils import embedding_functions
 from uuid import uuid4
 
-from base import DatabaseAgent
-from schema import RelatedDdl, RelatedDoc, RelatedQuestion
-from utils import get_formatted_time
+from ..base import DatabaseAgent
+from ..schema import RelatedDdl, RelatedDoc, RelatedQuestion
+from ..utils import get_formatted_time
 
 
 class ChromaDBAgent(DatabaseAgent):

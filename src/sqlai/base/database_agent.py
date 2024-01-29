@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import pandas as pd
 
-from schema import RelatedDdl, RelatedDoc, RelatedQuestion
+from ..schema import RelatedDdl, RelatedDoc, RelatedQuestion
 
 
 class DatabaseAgent(ABC):
