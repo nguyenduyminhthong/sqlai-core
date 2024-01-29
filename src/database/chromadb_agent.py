@@ -8,6 +8,7 @@ from uuid import uuid4
 
 from base import DatabaseAgent
 from schema import RelatedDdl, RelatedDoc, RelatedQuestion
+from utils import get_formatted_time
 
 
 class ChromaDBAgent(DatabaseAgent):
@@ -106,19 +107,19 @@ class ChromaDBAgent(DatabaseAgent):
 
         return df
 
-    def add_sql_question(self: "ChromaDBAgent", sql: str, question: str, time_created: str) -> None:
+    def add_sql_question(self: "ChromaDBAgent", sql: str, question: str, time_created: str = get_formatted_time()) -> None:
         uuid = str(uuid4()) + "-sql"
         self.sql_table.add(uuid, documents=json.dumps({"sql": sql, "question": question, "time_created": time_created}))
 
         return None
 
-    def add_ddl(self: "ChromaDBAgent", ddl: str, time_created: str) -> None:
+    def add_ddl(self: "ChromaDBAgent", ddl: str, time_created: str = get_formatted_time()) -> None:
         uuid = str(uuid4()) + "-ddl"
         self.ddl_table.add(uuid, documents=json.dumps({"ddl": ddl, "time_created": time_created}))
 
         return None
 
-    def add_doc(self: "ChromaDBAgent", doc: str, time_created: str) -> None:
+    def add_doc(self: "ChromaDBAgent", doc: str, time_created: str = get_formatted_time()) -> None:
         uuid = str(uuid4()) + "-doc"
         self.doc_table.add(uuid, documents=json.dumps({"doc": doc, "time_created": time_created}))
 
