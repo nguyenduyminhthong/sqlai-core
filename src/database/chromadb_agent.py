@@ -34,7 +34,7 @@ class ChromaDBAgent(DatabaseAgent):
 
         if result["documents"]:
             logger.debug(f"Related questions: {result['documents']}")
-            return [RelatedQuestion.parse_raw(document) for document in result["documents"][0]]
+            return [RelatedQuestion.parse_raw(document) for document in result["documents"]]
 
         return []
 
@@ -43,7 +43,7 @@ class ChromaDBAgent(DatabaseAgent):
 
         if result["documents"]:
             logger.debug(f"Related ddls: {result['documents']}")
-            return [RelatedDDL.parse_raw(document) for document in result["documents"][0]]
+            return [RelatedDDL.parse_raw(document) for document in result["documents"]]
 
         return []
 
@@ -52,7 +52,7 @@ class ChromaDBAgent(DatabaseAgent):
 
         if result["documents"]:
             logger.debug(f"Related docs: {result['documents']}")
-            return [RelatedDoc.parse_raw(document) for document in result["documents"][0]]
+            return [RelatedDoc.parse_raw(document) for document in result["documents"]]
 
         return []
 
