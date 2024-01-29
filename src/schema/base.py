@@ -6,7 +6,7 @@ class RelatedQuestion(BaseModel):
     question: str
 
 
-class RelatedDDL(BaseModel):
+class RelatedDdl(BaseModel):
     ddl: str
 
 

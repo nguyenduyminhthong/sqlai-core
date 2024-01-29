@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import pandas as pd
 
-from schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from schema import RelatedDdl, RelatedDoc, RelatedQuestion
 
 
 class DatabaseAgent(ABC):
@@ -11,7 +11,7 @@ class DatabaseAgent(ABC):
         pass
 
     @abstractmethod
-    def get_related_ddls(self: "DatabaseAgent", question: str) -> list[RelatedDDL]:
+    def get_related_ddls(self: "DatabaseAgent", question: str) -> list[RelatedDdl]:
         pass
 
     @abstractmethod

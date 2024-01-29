@@ -3,7 +3,7 @@ import re
 import cohere
 
 from base import ChatAgent
-from schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from schema import RelatedDdl, RelatedDoc, RelatedQuestion
 
 
 class CohereAgent(ChatAgent):
@@ -12,7 +12,7 @@ class CohereAgent(ChatAgent):
 
         return None
 
-    def generate_sql(self: "CohereAgent", question: str, related_questions: list[RelatedQuestion], ddls: list[RelatedDDL], docs: list[RelatedDoc]) -> str:
+    def generate_sql(self: "CohereAgent", question: str, related_questions: list[RelatedQuestion], ddls: list[RelatedDdl], docs: list[RelatedDoc]) -> str:
         system_prompt = self._generate_sql_system_prompt(ddls, docs)
         prompt_history = self._generate_sql_prompt_history(related_questions)
         sql_response = self._submit_prompt(question, system_prompt, prompt_history)
@@ -25,7 +25,7 @@ class CohereAgent(ChatAgent):
 
         return response
 
-    def _generate_sql_system_prompt(self: "CohereAgent", ddls: list[RelatedDDL], docs: list[RelatedDoc]) -> str:
+    def _generate_sql_system_prompt(self: "CohereAgent", ddls: list[RelatedDdl], docs: list[RelatedDoc]) -> str:
         system_prompt = "I provide a question, and you provide only SQL code without explaination.\n"
 
         system_prompt += "You may use the following DDL statements as a reference for what tables might be available:\n"

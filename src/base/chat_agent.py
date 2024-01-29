@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 
-from schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from schema import RelatedDdl, RelatedDoc, RelatedQuestion
 
 
 class ChatAgent(ABC):
     @abstractmethod
-    def generate_sql(self: "ChatAgent", question: str, related_questions: list[RelatedQuestion], ddls: list[RelatedDDL], docs: list[RelatedDoc]) -> str:
+    def generate_sql(self: "ChatAgent", question: str, related_questions: list[RelatedQuestion], ddls: list[RelatedDdl], docs: list[RelatedDoc]) -> str:
         pass
 
     @abstractmethod
@@ -13,7 +13,7 @@ class ChatAgent(ABC):
         pass
 
     @abstractmethod
-    def _generate_sql_system_prompt(self: "ChatAgent", ddls: list[RelatedDDL], docs: list[RelatedDoc]) -> str:
+    def _generate_sql_system_prompt(self: "ChatAgent", ddls: list[RelatedDdl], docs: list[RelatedDoc]) -> str:
         pass
 
     @abstractmethod

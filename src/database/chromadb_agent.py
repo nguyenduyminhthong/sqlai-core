@@ -7,7 +7,7 @@ from chromadb.utils import embedding_functions
 from uuid import uuid4
 
 from base import DatabaseAgent
-from schema import RelatedDDL, RelatedDoc, RelatedQuestion
+from schema import RelatedDdl, RelatedDoc, RelatedQuestion
 
 
 class ChromaDBAgent(DatabaseAgent):
@@ -38,14 +38,14 @@ class ChromaDBAgent(DatabaseAgent):
         logger.debug(f"Related questions: {result['documents']}")
         return [RelatedQuestion.parse_raw(document) for document in result["documents"][0] if document is not None]
 
-    def get_related_ddls(self: "ChromaDBAgent", question: str) -> list[RelatedDDL]:
+    def get_related_ddls(self: "ChromaDBAgent", question: str) -> list[RelatedDdl]:
         result = self.ddl_table.query(query_texts=[question])
 
         if not result["documents"]:
             return []
 
         logger.debug(f"Related ddls: {result['documents']}")
-        return [RelatedDDL.parse_raw(document) for document in result["documents"][0] if document is not None]
+        return [RelatedDdl.parse_raw(document) for document in result["documents"][0] if document is not None]
 
     def get_related_docs(self: "ChromaDBAgent", question: str) -> list[RelatedDoc]:
         result = self.doc_table.query(query_texts=[question])
