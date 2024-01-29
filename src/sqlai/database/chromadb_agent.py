@@ -62,14 +62,14 @@ class ChromaDBAgent(DatabaseAgent):
 
         sql_data = self.sql_table.get()
         if sql_data is not None:
-            documents = [json.loads(document) for document in sql_data["documents"]]
+            documents = [RelatedQuestion.parse_raw(document) for document in sql_data["documents"]]
 
             df_sql = pd.DataFrame(
                 {
                     "id": sql_data["ids"],
-                    "content": map(lambda document: document["sql"], documents),
-                    "question": map(lambda document: document["question"], documents),
-                    "time_created": map(lambda document: document["time_created"], documents),
+                    "content": map(lambda document: document.sql, documents),
+                    "question": map(lambda document: document.question, documents),
+                    "time_created": map(lambda document: document.time_created, documents),
                 }
             )
 
@@ -77,13 +77,13 @@ class ChromaDBAgent(DatabaseAgent):
 
         ddl_data = self.ddl_table.get()
         if ddl_data is not None:
-            documents = [json.loads(document) for document in ddl_data["documents"]]
+            documents = [RelatedDdl.parse_raw(document) for document in ddl_data["documents"]]
 
             df_ddl = pd.DataFrame(
                 {
                     "id": ddl_data["ids"],
-                    "content": map(lambda document: document["ddl"], documents),
-                    "time_created": map(lambda document: document["time_created"], documents),
+                    "content": map(lambda document: document.ddl, documents),
+                    "time_created": map(lambda document: document.time_created, documents),
                 }
             )
             df_ddl["question"] = None
@@ -92,13 +92,13 @@ class ChromaDBAgent(DatabaseAgent):
 
         doc_data = self.doc_table.get()
         if doc_data is not None:
-            documents = [json.loads(document) for document in doc_data["documents"]]
+            documents = [RelatedDoc.parse_raw(document) for document in doc_data["documents"]]
 
             df_doc = pd.DataFrame(
                 {
                     "id": doc_data["ids"],
-                    "content": map(lambda document: document["ddl"], documents),
-                    "time_created": map(lambda document: document["time_created"], documents),
+                    "content": map(lambda document: document.doc, documents),
+                    "time_created": map(lambda document: document.time_created, documents),
                 }
             )
             df_doc["question"] = None
