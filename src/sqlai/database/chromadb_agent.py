@@ -3,6 +3,7 @@ import json
 import chromadb
 from loguru import logger
 import pandas as pd
+from chromadb.config import Settings
 from chromadb.utils import embedding_functions
 from uuid import uuid4
 
@@ -13,16 +14,18 @@ from sqlai.utils import get_formatted_time
 
 class ChromaDBAgent(DatabaseAgent):
     def __init__(self: "ChromaDBAgent", host: str = None, path: str = None, client_type: str = "HttpClient") -> None:
+        settings = Settings(anonymized_telemetry=False)
+
         if client_type == "HttpClient":
             if not host:
                 raise ValueError("Database host is not provided.")
 
-            self.chroma_client = chromadb.HttpClient(host)
+            self.chroma_client = chromadb.HttpClient(host, settings=settings)
         else:
             if not path:
                 raise ValueError("Database path is not provided.")
 
-            self.chroma_client = chromadb.PersistentClient(path)
+            self.chroma_client = chromadb.PersistentClient(path, settings=settings)
 
         self.sql_table = self.chroma_client.get_or_create_collection("sql", embedding_function=embedding_functions.DefaultEmbeddingFunction())
         self.ddl_table = self.chroma_client.get_or_create_collection("ddl", embedding_function=embedding_functions.DefaultEmbeddingFunction())
