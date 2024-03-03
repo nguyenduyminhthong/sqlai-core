@@ -26,7 +26,7 @@ class CohereAgent(ChatAgent):
         return response
 
     def _generate_sql_system_prompt(self: "CohereAgent", ddls: list[RelatedDdl], docs: list[RelatedDoc]) -> str:
-        system_prompt = "I provide a question, and you provide only SQL code without explaination.\n"
+        system_prompt = "I provide a question, and you provide only SQL code without explanation.\n"
 
         system_prompt += "You may use the following DDL statements as a reference for what tables might be available:\n"
         for example in ddls:
